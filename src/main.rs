@@ -15,7 +15,8 @@ fn main() {
             return;
         }
         let data = hex::decode(address).unwrap();
-        let encoded = bech32::encode(new_prefix, encode_to_u5(data), bech32::Variant::Bech32).unwrap();
+        let encoded =
+            bech32::encode(new_prefix, encode_to_u5(data), bech32::Variant::Bech32).unwrap();
         println!("{}", encoded);
         return;
     }
@@ -30,7 +31,7 @@ fn main() {
 }
 
 fn encode_to_u5(data: Vec<u8>) -> Vec<u5> {
-    let mut result: Vec<u5> = Vec::with_capacity((data.len() + 3) / 4 * 5);
+    let mut result: Vec<u5> = Vec::with_capacity(data.len().div_ceil(4) * 5);
     for chunk in data.chunks(5) {
         let buf = {
             let mut buf = [0u8; 5];
